@@ -1,0 +1,30 @@
+<section class="col-xs-9 content">
+    <table class="content-table table table-bordered">
+        <tr class="content-table__headings">
+            <th class="content-table__heading" ng-repeat="(key,value) in tableStructure"
+                ng-click="sortBy($index)">{{value}}
+                <span class="sortorder" ng-show="propertyName == key" ng-class="{reverse: reverse}"></span>
+            </th>
+        </tr>
+        <tr ng-repeat="item in items = (data|filter: searchText as fliteredData)|startFrom: currentPage * itemsPerPage
+            |orderBy:property:reverse| limitTo: itemsPerPage ">
+            <td ng-repeat="prop in item">{{prop}}</td>
+        </tr>
+    </table>
+    <div class="content-pagination">
+        <button class="btn btn-primary btn-sm" ng-disabled="currentPage <= 0;" ng-click="currentPage = currentPage - 1">
+            Назад
+        </button>
+        <span class="content-pagination__text">{{currentPage+1}} из {{numberOfPages()}}</span>
+        <button class="btn btn-primary btn-sm" ng-disabled="lastPage()" ng-click="currentPage = currentPage + 1">
+            Вперед
+        </button>
+    </div>
+</section>
+<section class="col-xs-3 search">
+    <label>Search: <input class="search__input" ng-model="searchText"></label>
+</section>
+
+
+
+

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test-project</title>
+
+    <link rel="stylesheet" href="css/vendor/normalize.css">
+    <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body ng-app="productsApp">
+
+<!--<main role="main" class="container" ng-controller="tableController">-->
+    <!--<div class="row">-->
+        <!--<my-table table-data="tableData" table-structure="tableStructure" ng-if="tableStructure"></my-table>-->
+    <!--</div>-->
+<!--</main>-->
+
+<main role="main" class="page-wrapper container" ng-controller="usersController as users">
+    <div class="page row">
+        <div class="class">
+            <div class="col-xs-5 page__preview" ng-class="{'page__preview_short': users.previewShort}">
+                <div class="row preview-wrapper">
+                    <div class="col-xs-12 preview-search">
+                        <input class="preview-search__input" ng-model="searchUsers" ng-change="users.checkPreviewLength()">
+                        <span class="preview-search__icon glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </div>
+                    <div class="col-xs-12 preview-users">
+                        <ul class="preview-users__list">
+                            <li class="preview-users__item" ng-repeat="user in users.mainData | filter: searchUsers as filteredUsers"
+                                ng-click="users.choose(user)" ng-class="{'preview-users__item_chosen': user == users.chosenUser}">
+                                <div class="row item-content-wrapper">
+                                    <img ng-src="{{user.general.avatar}}" class="col-xs-4 img-responsive preview-users__image" alt="User's photo">
+                                    <div class="col-xs-8 preview-users__info">
+                                        <p class="preview-users__info-item1" ng-bind="user.general.firstName + ' ' + user.general.lastName"></p>
+                                        <p class="preview-users__info-item2" ng-bind="user.job.title"></p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-7 main-content" ng-show="users.chosenUser" ng-class="{'main-content_long': users.previewShort}">
+                <div class="row main-content-wrapper">
+                    <img ng-src="{{users.chosenUser.general.avatar}}" class="col-xs-4 img-responsive main-content__image" alt="User's photo">
+                    <div class="col-xs-8 main-content__info">
+                        <p class="main-content__info-item1" ng-bind="users.chosenUser.general.firstName + ' ' + users.chosenUser.general.lastName"></p>
+                        <p class="main-content__info-item2" ng-bind="users.chosenUser.job.title + ' - ' + users.chosenUser.job.company"></p>
+                        <p class="main-content__info-item3"
+                           ng-bind="users.chosenUser.address.country + ', ' + users.chosenUser.address.city + ', '
+                       + users.chosenUser.address.street + ', ' + users.chosenUser.address.zipCode ">
+                        </p>
+                        <p class="main-content__info-item4" ng-bind="users.chosenUser.contact.email"></p>
+                        <p class="main-content__info-item5" ng-bind="users.chosenUser.contact.phone"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="js/vendor/angular.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
